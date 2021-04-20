@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>801</width>
+    <width>508</width>
     <height>284</height>
    </rect>
   </property>
@@ -123,14 +123,7 @@
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_3">
-            <item>
-             <layout class="QHBoxLayout" name="a_even_layout"/>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="a_odd_layout"/>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="a_even_layout"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_2">
@@ -167,14 +160,7 @@
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <layout class="QHBoxLayout" name="c_even_layout"/>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="c_odd_layout"/>
-            </item>
-           </layout>
+           <layout class="QVBoxLayout" name="c_even_layout"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_3">
@@ -272,7 +258,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>801</width>
+     <width>508</width>
      <height>21</height>
     </rect>
    </property>
