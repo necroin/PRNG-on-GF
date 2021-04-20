@@ -20,6 +20,6 @@ private:
     Ui::PRNGonGFClass ui;
     QHBoxLayout* a_first = new QHBoxLayout();
     QHBoxLayout* c_first = new QHBoxLayout();
-    QHBoxLayout* a_second = new QHBoxLayout();
-    QHBoxLayout* c_second = new QHBoxLayout();
+    QHBoxLayout* a_second = nullptr;
+    QHBoxLayout* c_second = nullptr;
 };

@@ -57,10 +57,30 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
         ui.statusBar->showMessage("Now single mod used");
        ui.a_even_layout->removeItem(a_second);
        ui.c_even_layout->removeItem(c_second);
+      
+       QLayoutItem* item;
+       QLayout* sublayout;
+       QWidget* widget;
+       while ((item = a_second->takeAt(0))) {
+           if ((sublayout = item->layout()) != 0) { }
+           else if ((widget = item->widget()) != 0) { widget->hide(); delete widget; }
+           else { delete item; }
+       }
+
+       delete a_second;
+
+       while ((item = c_second->takeAt(0))) {
+           if ((sublayout = item->layout()) != 0) { }
+           else if ((widget = item->widget()) != 0) { widget->hide(); delete widget; }
+           else { delete item; }
+       }
+
+       delete c_second;
    
     }
     else {
-
+        a_second = new QHBoxLayout();
+        c_second = new QHBoxLayout();
         ui.statusBar->showMessage("Now even/odd mod used");
         ui.a_even_layout->addLayout(a_second);
         ui.c_even_layout->addLayout(c_second);
