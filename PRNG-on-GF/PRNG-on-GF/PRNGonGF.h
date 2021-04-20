@@ -7,7 +7,7 @@ class PRNGonGF : public QMainWindow
 {
     Q_OBJECT
 
-signals:
+private slots:
     void on_degree_edit_returnPressed();
 
 public:
