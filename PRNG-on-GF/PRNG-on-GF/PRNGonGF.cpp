@@ -1,5 +1,4 @@
 #include "PRNGonGF.h"
-#include <string>
 
 PRNGonGF::PRNGonGF(QWidget *parent)
     : QMainWindow(parent)
@@ -10,7 +9,7 @@ PRNGonGF::PRNGonGF(QWidget *parent)
     ui.degree_edit->setText("1");
 }
 
-void remove_last_widget_from_layout(QBoxLayout* parent) {
+void PRNGonGF::remove_last_widget_from_layout(QBoxLayout* parent) {
     auto i = parent->count();
     auto wItem = parent->takeAt(i - 1);
     if (wItem->widget())
@@ -18,7 +17,7 @@ void remove_last_widget_from_layout(QBoxLayout* parent) {
     delete wItem;
 }
 
-void remove_layout(QBoxLayout* layout) {
+void PRNGonGF::remove_layout(QBoxLayout* layout) {
 
     QLayoutItem* item;
     QLayout* sublayout;
@@ -33,7 +32,7 @@ void remove_layout(QBoxLayout* layout) {
     delete layout;
 }
 
-void set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
+void PRNGonGF::set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
 
     QLayoutItem* item;
     QLayout* sublayout;
@@ -50,7 +49,7 @@ void set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
  
 }
 
-QSpinBox* create_new_spinbox(int max_degree) {
+QSpinBox* PRNGonGF::create_new_spinbox(int max_degree) {
     auto newSpinBox = new QSpinBox();
     newSpinBox->setMaximum(max_degree);
     newSpinBox->setMinimum(0);
@@ -114,17 +113,7 @@ void PRNGonGF::on_degree_edit_returnPressed() {
 
 void PRNGonGF::on_even_checkbox_stateChanged() {
     bool use_even_odd = ui.even_checkbox->isChecked();
-    if (!use_even_odd) {
-       ui.statusBar->showMessage("Single mod is now used");
-
-       ui.a_even_layout->removeItem(a_second);
-       ui.c_even_layout->removeItem(c_second);
-      
-       remove_layout(a_second);
-       remove_layout(c_second);
-   
-    }
-    else {
+    if (use_even_odd) {
         ui.statusBar->showMessage("Even/odd mod is now used");
 
         a_second = new QHBoxLayout();
@@ -143,4 +132,14 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
             c_second->addWidget(newSpinBox4);
         }
     }
+    else {
+    ui.statusBar->showMessage("Single mod is now used");
+
+    ui.a_even_layout->removeItem(a_second);
+    ui.c_even_layout->removeItem(c_second);
+
+    remove_layout(a_second);
+    remove_layout(c_second);
+    }
+  
 }
