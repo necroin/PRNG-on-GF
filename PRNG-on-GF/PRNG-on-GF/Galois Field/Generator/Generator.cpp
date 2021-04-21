@@ -40,7 +40,6 @@ Generator::Generator(GaloisField& field, Int N, std::vector<GFElement> A, std::v
 	if (A.size() != N || C.size() != N) {
 		throw std::exception("dimensions of the model do not match each other");
 	}
-	check_endless_loop(A, C);
 	if (star_Q.size() == N) _start_Q = star_Q;
 	else _start_Q = std::vector(N, GFElement(CoefficientsVector(field.dimension(), 0), field));
 	reset();
@@ -75,6 +74,8 @@ void Generator::print_all_current_cycle_states(std::ostream& out)
 
 std::vector<std::vector<std::vector<GFElement>>> Generator::generate_all_cycles()
 {
+	check_endless_loop(_even_A, _even_C);
+	check_endless_loop(_odd_A, _odd_C);
 	decltype(auto) all_field_polynomials = _field.all_field_elements(); 
 
 	std::set<std::vector<GFElement>> all_polynomials_combinations_set;

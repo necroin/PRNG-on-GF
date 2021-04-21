@@ -285,7 +285,6 @@ void PRNGonGF::on_build_prng_clicked() {
     int sum_type = ui.field_box->currentIndex();  // 0 - 2^N, 1 - G
 
     if (ok1 && ok2) {
-
         try{
             int p = 2;
 
@@ -323,7 +322,7 @@ void PRNGonGF::on_build_prng_clicked() {
 
                 for (size_t i = 0; i < a_count; i++)
                 {
-                    auto current_spin_A_odd = dynamic_cast<QSpinBox*>(c_second->itemAt(i)->widget());
+                    auto current_spin_A_odd = dynamic_cast<QSpinBox*>(a_second->itemAt(i)->widget());
                     auto current_spin_C_odd = dynamic_cast<QSpinBox*>(c_second->itemAt(i)->widget());
                     bool ok1;
                     bool ok2;
@@ -345,7 +344,6 @@ void PRNGonGF::on_build_prng_clicked() {
             }
 
             // 0 - 2^N, 1 - G
-
             if (sum_type) {
                 generator.set_even_iteration_add(Generator::field_add);
                 generator.set_odd_iteration_add(Generator::field_add);
@@ -356,15 +354,13 @@ void PRNGonGF::on_build_prng_clicked() {
             
             Dialog* mDialog = new Dialog(this, result_string.str().c_str());
             mDialog->show();
-        }
+        } 
         catch(std::exception& exc){
             ui.statusBar->showMessage(exc.what());
         }
-
-        
-        
-
-
+    }
+    else {
+        ui.statusBar->showMessage("Invalid data");
     }
    
 }
