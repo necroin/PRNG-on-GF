@@ -22,6 +22,15 @@ void Generator::odd_iteration(std::vector<GFElement>& new_Q)
 	}
 }
 
+void Generator::check_endless_loop(std::vector<GFElement>& A, std::vector<GFElement>& C)
+{
+	for (Int i = 0; i < _N; ++i) {
+		if (A[i].to_int() == 0 && C[i].to_int() == 0) {
+			throw std::exception("endless loop");
+		}
+	}
+}
+
 Generator::Generator(GaloisField& field, Int N, std::vector<GFElement> A, std::vector<GFElement> C, std::vector<GFElement> star_Q) :
 	_field(field),
 	_N(N),
@@ -31,6 +40,7 @@ Generator::Generator(GaloisField& field, Int N, std::vector<GFElement> A, std::v
 	if (A.size() != N || C.size() != N) {
 		throw std::exception("dimensions of the model do not match each other");
 	}
+	check_endless_loop(A, C);
 	if (star_Q.size() == N) _start_Q = star_Q;
 	else _start_Q = std::vector(N, GFElement(CoefficientsVector(field.dimension(), 0), field));
 	reset();

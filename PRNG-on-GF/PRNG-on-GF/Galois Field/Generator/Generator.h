@@ -20,6 +20,7 @@ private:
 	void reset();
 	void even_iteration(std::vector<GFElement>& new_Q);
 	void odd_iteration(std::vector<GFElement>& new_Q);
+	void check_endless_loop(std::vector<GFElement>& A, std::vector<GFElement>& C);
 public:
 	Generator(GaloisField& field, Int N, std::vector<GFElement> A, std::vector<GFElement> C, std::vector<GFElement> star_Q = std::vector<GFElement>());
 public:
