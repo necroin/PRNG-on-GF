@@ -8,6 +8,7 @@
 #include "Galois Field/Generator/Generator.h"
 #include <sstream>
 #include <QString>
+#include <QScrollArea>
 
 class PRNGonGF : public QMainWindow
 {
@@ -18,14 +19,18 @@ private slots:
     void on_n_edit_returnPressed();
     void on_even_checkbox_stateChanged();
     void on_build_prng_clicked();
+    void on_n_edit_textChanged();
+    void on_degree_edit_textChanged();
+    void on_n_save_clicked();
+    void on_degree_save_clicked();
 
 public:
     PRNGonGF(QWidget *parent = Q_NULLPTR);
 
 private:
     Ui::PRNGonGFClass ui;
-    QHBoxLayout* a_first = new QHBoxLayout();
-    QHBoxLayout* c_first = new QHBoxLayout();
+    QHBoxLayout* a_first = nullptr;
+    QHBoxLayout* c_first = nullptr;
     QHBoxLayout* a_second = nullptr;
     QHBoxLayout* c_second = nullptr;
 

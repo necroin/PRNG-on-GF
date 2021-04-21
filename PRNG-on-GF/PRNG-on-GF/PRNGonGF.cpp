@@ -4,8 +4,26 @@ PRNGonGF::PRNGonGF(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
-    ui.a_even_layout->addLayout(a_first);
-    ui.c_even_layout->addLayout(c_first);
+
+    QWidget* central12 = new QWidget;
+    QWidget* central22 = new QWidget;
+    a_first = new QHBoxLayout();
+    c_first = new QHBoxLayout();
+    central12->setLayout(a_first);
+    central22->setLayout(c_first);
+
+    QScrollArea* scroll1 = new QScrollArea;
+    scroll1->setWidget(central12);
+    scroll1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    scroll1->setWidgetResizable(true);
+    ui.a_even_layout->addWidget(scroll1);
+
+    QScrollArea* scroll2 = new QScrollArea;
+    scroll2->setWidget(central22);
+    scroll2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    scroll2->setWidgetResizable(true);
+    ui.c_even_layout->addWidget(scroll2);
+
     ui.a_label_layout->addWidget(a_label_first);
     ui.c_label_layout->addWidget(c_label_first);
     ui.degree_edit->setText("1");
@@ -90,6 +108,7 @@ void PRNGonGF::on_n_edit_returnPressed() {
                 }
             }
         }
+        ui.n_save->setEnabled(false);
     }
     else{
         ui.statusBar->showMessage("Degree can't be a letter");
@@ -109,10 +128,77 @@ void PRNGonGF::on_degree_edit_returnPressed() {
             set_spinbox_max_value(a_second, new_degree);
             set_spinbox_max_value(c_second, new_degree);
         }
+        ui.degree_save->setEnabled(false);
     }
     else {
         ui.statusBar->showMessage("Degree can't be a letter");
     }
+}
+
+
+void PRNGonGF::on_n_edit_textChanged() {
+    ui.n_save->setEnabled(true);
+}
+void PRNGonGF::on_degree_edit_textChanged() {
+    ui.degree_save->setEnabled(true);
+}
+
+void PRNGonGF::on_n_save_clicked() {
+    bool ok;
+    int max_degree = ui.degree_edit->text().toInt();
+    int new_n = ui.n_edit->text().toInt(&ok);
+    bool use_even_odd = ui.even_checkbox->isChecked();
+    if (ok == true) {
+        if (new_n < 1)
+            ui.statusBar->showMessage("N can't be less than 1");
+        else {
+            ui.statusBar->showMessage("New n: " + QString::number(new_n));
+            int current_degree = a_first->count();
+            for (size_t i = current_degree; i < new_n; i++)
+            {
+                a_first->addWidget(create_new_spinbox(max_degree));
+                c_first->addWidget(create_new_spinbox(max_degree));
+
+                if (use_even_odd) {
+                    a_second->addWidget(create_new_spinbox(max_degree));
+                    c_second->addWidget(create_new_spinbox(max_degree));
+                }
+            }
+            for (size_t i = current_degree; i > new_n; i--) {
+                remove_last_widget_from_layout(a_first);
+                remove_last_widget_from_layout(c_first);
+                if (use_even_odd) {
+                    remove_last_widget_from_layout(a_second);
+                    remove_last_widget_from_layout(c_second);
+                }
+            }
+        }
+        ui.n_save->setEnabled(false);
+    }
+    else {
+        ui.statusBar->showMessage("Degree can't be a letter");
+    }
+
+}
+
+void PRNGonGF::on_degree_save_clicked() {
+    bool ok;
+    int new_degree = ui.degree_edit->text().toInt(&ok);
+    bool use_even_odd = ui.even_checkbox->isChecked();
+    if (ok == true) {
+        ui.statusBar->showMessage("New degree: " + QString::number(new_degree));
+        set_spinbox_max_value(a_first, new_degree);
+        set_spinbox_max_value(c_first, new_degree);
+        if (use_even_odd) {
+            set_spinbox_max_value(a_second, new_degree);
+            set_spinbox_max_value(c_second, new_degree);
+        }
+        ui.degree_save->setEnabled(false);
+    }
+    else {
+        ui.statusBar->showMessage("Degree can't be a letter");
+    }
+
 }
 
 void PRNGonGF::on_even_checkbox_stateChanged() {
@@ -121,17 +207,40 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
     if (use_even_odd) {
         ui.statusBar->showMessage("Even/odd mod is now used");
 
+
+        a_label_second = new QLabel(QString::fromUtf8(u8"A чт"));
+        c_label_second = new QLabel(QString::fromUtf8(u8"C чт"));
+
+        a_label_first->setText(QString::fromUtf8(u8"A нч"));
+        c_label_first->setText(QString::fromUtf8(u8"C нч"));
+
+        //ui.a_even_layout->addLayout(a_second);
+        //ui.c_even_layout->addLayout(c_second);
+
+        QWidget* central1 = new QWidget;
+        QWidget* central2 = new QWidget;
         a_second = new QHBoxLayout();
         c_second = new QHBoxLayout();
+        central1->setLayout(a_second);
+        central2->setLayout(c_second);
 
-        a_label_second = new QLabel("A odd");
-        c_label_second = new QLabel("C odd");
+        a_first->setSizeConstraint(QLayout::SetMinimumSize);
+        a_second->setSizeConstraint(QLayout::SetMinimumSize);
+        c_first->setSizeConstraint(QLayout::SetMinimumSize);
+        c_second->setSizeConstraint(QLayout::SetMinimumSize);
 
-        a_label_first->setText("A even");
-        c_label_first->setText("C even");
+        QScrollArea* scroll1 = new QScrollArea;
+        scroll1->setWidget(central1);
+        scroll1->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        scroll1->setWidgetResizable(true);
+        ui.a_even_layout->addWidget(scroll1);
 
-        ui.a_even_layout->addLayout(a_second);
-        ui.c_even_layout->addLayout(c_second);
+        QScrollArea* scroll2 = new QScrollArea;
+        scroll2->setWidget(central2);
+        scroll2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        scroll2->setWidgetResizable(true);
+        ui.c_even_layout->addWidget(scroll2);
+
 
         ui.a_label_layout->addWidget(a_label_second);
         ui.c_label_layout->addWidget(c_label_second);
@@ -156,10 +265,12 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
     remove_layout(a_second);
     remove_layout(c_second);
 
+    remove_last_widget_from_layout(ui.a_even_layout);
+    remove_last_widget_from_layout(ui.c_even_layout);
+
     remove_last_widget_from_layout(ui.a_label_layout);
     remove_last_widget_from_layout(ui.c_label_layout);
 
- 
     }
   
 }
