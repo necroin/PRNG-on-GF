@@ -46,14 +46,14 @@ void PRNGonGF::set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
     {
         item = parent->itemAt(i);
         widget = dynamic_cast<QSpinBox*>(item->widget());
-        widget->setMaximum(max_degree - 1);
+        widget->setMaximum(std::pow(2, max_degree) - 1);
     }
  
 }
 
 QSpinBox* PRNGonGF::create_new_spinbox(int max_degree) {
     auto newSpinBox = new QSpinBox();
-    newSpinBox->setMaximum(max_degree - 1);
+    newSpinBox->setMaximum(std::pow(2, max_degree) - 1);
     newSpinBox->setMaximumWidth(50);
     newSpinBox->setMinimumWidth(50);
     newSpinBox->setMinimum(0);
@@ -168,14 +168,92 @@ void PRNGonGF::on_build_prng_clicked() {
 
     bool ok1;
     bool ok2;
-    int degree = ui.degree_edit->text().toInt(&ok1);
-    int n = ui.n_edit->text().toInt(&ok2);
+    int n = ui.degree_edit->text().toInt(&ok1);
+    int N = ui.n_edit->text().toInt(&ok2);
     bool use_even_odd = ui.even_checkbox->isChecked();
-    int type = ui.field_box->currentIndex();  // 0 - 2^N, 1 - G
+    int sum_type = ui.field_box->currentIndex();  // 0 - 2^N, 1 - G
+
+    if (ok1 && ok2) {
+
+        try{
+            int p = 2;
+
+            auto primitives = prim_poly::find_prim(n);
+            auto field = GaloisField(p, n, primitives.front());
+
+            std::vector<GFElement> A;
+            std::vector<GFElement> C;
+
+            int a_count = a_first->count();
+
+            for (size_t i = 0; i < a_count; i++)
+            {
+                auto current_spin_A_even = dynamic_cast<QSpinBox*>(a_first->itemAt(i)->widget());
+                auto current_spin_C_even = dynamic_cast<QSpinBox*>(c_first->itemAt(i)->widget());
+                bool ok1;
+                bool ok2;
+                int value_a = current_spin_A_even->text().toInt(&ok1);
+                int value_c = current_spin_C_even->text().toInt(&ok2);
+                if (ok1 && ok2) {
+                    A.push_back(field.create_polynomial(prim_poly::detail::to_binary(value_a, n)));
+                    C.push_back(field.create_polynomial(prim_poly::detail::to_binary(value_c, n)));
+                }
+                else {
+                    throw std::exception("Wrong A/C parameters");
+                }
+            }
+
+            auto generator = Generator(field, N, A, C);
+
+            if (use_even_odd) {
+                std::vector<GFElement> A_odd;
+                std::vector<GFElement> C_odd;
+                int a_count = a_first->count();
+
+                for (size_t i = 0; i < a_count; i++)
+                {
+                    auto current_spin_A_odd = dynamic_cast<QSpinBox*>(c_second->itemAt(i)->widget());
+                    auto current_spin_C_odd = dynamic_cast<QSpinBox*>(c_second->itemAt(i)->widget());
+                    bool ok1;
+                    bool ok2;
+                    int value_a = current_spin_A_odd->text().toInt(&ok1);
+                    int value_c = current_spin_C_odd->text().toInt(&ok2);
+                    if (ok1 && ok2) {
+                        A_odd.push_back(field.create_polynomial(prim_poly::detail::to_binary(value_a, n)));
+                        C_odd.push_back(field.create_polynomial(prim_poly::detail::to_binary(value_c, n)));
+                    }
+                    else {
+                        throw std::exception("Wrong A/C parameters");
+                    }
+                }
+                generator.set_odd_A(A_odd);
+                generator.set_odd_C(C_odd);
+
+                
+
+            }
+
+            // 0 - 2^N, 1 - G
+
+            if (sum_type) {
+                generator.set_even_iteration_add(Generator::field_add);
+                generator.set_odd_iteration_add(Generator::field_add);
+            }
+
+            std::ostringstream result_string;
+            generator.print_all_cycles(result_string);
+            
+            Dialog* mDialog = new Dialog(this, result_string.str().c_str());
+            mDialog->show();
+        }
+        catch(std::exception& exc){
+            ui.statusBar->showMessage(exc.what());
+        }
+
+        
+        
 
 
-
-    Dialog* mDialog = new Dialog(this, ui.n_edit->text());
-    mDialog->show();
+    }
    
 }

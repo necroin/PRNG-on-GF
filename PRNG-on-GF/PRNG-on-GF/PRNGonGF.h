@@ -5,6 +5,9 @@
 #include <string>
 #include "ui_PRNGonGF.h"
 #include "Dialog.h"
+#include "Galois Field/Generator/Generator.h"
+#include <sstream>
+#include <QString>
 
 class PRNGonGF : public QMainWindow
 {
