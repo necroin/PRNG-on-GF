@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
+    <width>289</width>
     <height>284</height>
    </rect>
   </property>
@@ -116,11 +116,7 @@
         <item>
          <layout class="QHBoxLayout" name="a_horizontal_layout">
           <item>
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>A</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="a_label_layout"/>
           </item>
           <item>
            <layout class="QVBoxLayout" name="a_even_layout"/>
@@ -153,11 +149,7 @@
         <item>
          <layout class="QHBoxLayout" name="c_horizontal_layout">
           <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>C</string>
-            </property>
-           </widget>
+           <layout class="QVBoxLayout" name="c_label_layout"/>
           </item>
           <item>
            <layout class="QVBoxLayout" name="c_even_layout"/>
@@ -258,7 +250,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>508</width>
+     <width>289</width>
      <height>21</height>
     </rect>
    </property>

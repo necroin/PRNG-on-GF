@@ -6,6 +6,8 @@ PRNGonGF::PRNGonGF(QWidget *parent)
     ui.setupUi(this);
     ui.a_even_layout->addLayout(a_first);
     ui.c_even_layout->addLayout(c_first);
+    ui.a_label_layout->addWidget(a_label_first);
+    ui.c_label_layout->addWidget(c_label_first);
     ui.degree_edit->setText("1");
 }
 
@@ -58,8 +60,8 @@ QSpinBox* PRNGonGF::create_new_spinbox(int max_degree) {
 
 void PRNGonGF::on_n_edit_returnPressed() {
     bool ok;
+    int max_degree = ui.degree_edit->text().toInt();
     int new_n = ui.n_edit->text().toInt(&ok);
-    int max_degree = ui.degree_edit->text().toInt(&ok);
     bool use_even_odd = ui.even_checkbox->isChecked();
     if (ok == true) {
         if(new_n < 1)
@@ -113,33 +115,49 @@ void PRNGonGF::on_degree_edit_returnPressed() {
 
 void PRNGonGF::on_even_checkbox_stateChanged() {
     bool use_even_odd = ui.even_checkbox->isChecked();
+    int max_degree = ui.degree_edit->text().toInt();
     if (use_even_odd) {
         ui.statusBar->showMessage("Even/odd mod is now used");
 
         a_second = new QHBoxLayout();
         c_second = new QHBoxLayout();
 
+        a_label_second = new QLabel("A odd");
+        c_label_second = new QLabel("C odd");
+
+        a_label_first->setText("A even");
+        c_label_first->setText("C even");
+
         ui.a_even_layout->addLayout(a_second);
         ui.c_even_layout->addLayout(c_second);
+
+        ui.a_label_layout->addWidget(a_label_second);
+        ui.c_label_layout->addWidget(c_label_second);
 
         int current_degree = a_first->count();
         int old_degree = a_second->count();
         for (size_t i = old_degree; i < current_degree; i++)
         {
-            auto newSpinBox3 = new QSpinBox();
-            auto newSpinBox4 = new QSpinBox();
-            a_second->addWidget(newSpinBox3);
-            c_second->addWidget(newSpinBox4);
+            a_second->addWidget(create_new_spinbox(max_degree));
+            c_second->addWidget(create_new_spinbox(max_degree));
         }
     }
     else {
     ui.statusBar->showMessage("Single mod is now used");
+
+    a_label_first->setText("A");
+    c_label_first->setText("C");
 
     ui.a_even_layout->removeItem(a_second);
     ui.c_even_layout->removeItem(c_second);
 
     remove_layout(a_second);
     remove_layout(c_second);
+
+    remove_last_widget_from_layout(ui.a_label_layout);
+    remove_last_widget_from_layout(ui.c_label_layout);
+
+ 
     }
   
 }

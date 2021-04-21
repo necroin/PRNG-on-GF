@@ -24,6 +24,11 @@ private:
     QHBoxLayout* a_second = nullptr;
     QHBoxLayout* c_second = nullptr;
 
+    QLabel* a_label_first = new QLabel("A");
+    QLabel* c_label_first = new QLabel("C");
+    QLabel* a_label_second = nullptr;
+    QLabel* c_label_second = nullptr;
+
     void remove_last_widget_from_layout(QBoxLayout* parent);
     void remove_layout(QBoxLayout* layout);
     void set_spinbox_max_value(QBoxLayout* parent, int max_degree);
