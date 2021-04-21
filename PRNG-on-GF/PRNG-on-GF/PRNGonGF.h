@@ -4,6 +4,7 @@
 #include <QtWidgets/QSpinBox>
 #include <string>
 #include "ui_PRNGonGF.h"
+#include "Dialog.h"
 
 class PRNGonGF : public QMainWindow
 {
@@ -13,6 +14,7 @@ private slots:
     void on_degree_edit_returnPressed();
     void on_n_edit_returnPressed();
     void on_even_checkbox_stateChanged();
+    void on_build_prng_clicked();
 
 public:
     PRNGonGF(QWidget *parent = Q_NULLPTR);

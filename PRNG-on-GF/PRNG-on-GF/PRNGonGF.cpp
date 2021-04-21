@@ -161,3 +161,10 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
     }
   
 }
+
+void PRNGonGF::on_build_prng_clicked() {
+
+    Dialog* mDialog = new Dialog(this);
+    mDialog->show();
+   
+}

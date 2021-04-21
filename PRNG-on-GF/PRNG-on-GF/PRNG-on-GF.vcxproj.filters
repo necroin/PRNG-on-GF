@@ -18,15 +18,18 @@
     <ClCompile Include="Galois Field\Generator\Generator.cpp">
       <Filter>Core\PRNG</Filter>
     </ClCompile>
+    <ClCompile Include="Dialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="PRNGonGF.h" />
+    <QtMoc Include="Dialog.h" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="PRNGonGF.qrc" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="PRNGonGF.ui" />
+    <QtUic Include="Dialog.ui" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

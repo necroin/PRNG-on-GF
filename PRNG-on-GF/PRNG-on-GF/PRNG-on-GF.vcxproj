@@ -98,6 +98,7 @@
     <QtRcc Include="PRNGonGF.qrc" />
     <QtUic Include="PRNGonGF.ui" />
     <QtMoc Include="PRNGonGF.h" />
+    <ClCompile Include="Dialog.cpp" />
     <ClCompile Include="Galois Field\Arithmetic\Modular\ModularArithmetic.cpp" />
     <ClCompile Include="Galois Field\Arithmetic\Polynomial\PolynomialArithmetic.cpp" />
     <ClCompile Include="Galois Field\Field\GaloisField.cpp" />
@@ -105,8 +106,10 @@
     <ClCompile Include="Galois Field\Generator\Generator.cpp" />
     <ClCompile Include="PRNGonGF.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="Dialog.ui" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="Dialog.h" />
     <ClInclude Include="Galois Field\Arithmetic\Modular\ModularArithmetic.h" />
     <ClInclude Include="Galois Field\Arithmetic\Polynomial\PolynomialArithmetic.h" />
     <ClInclude Include="Galois Field\Field\GaloisField.h" />
