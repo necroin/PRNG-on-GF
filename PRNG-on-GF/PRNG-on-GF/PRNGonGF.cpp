@@ -46,7 +46,7 @@ void PRNGonGF::set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
     {
         item = parent->itemAt(i);
         widget = dynamic_cast<QSpinBox*>(item->widget());
-        widget->setMaximum(max_degree);
+        widget->setMaximum(max_degree - 1);
     }
  
 }
@@ -54,6 +54,8 @@ void PRNGonGF::set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
 QSpinBox* PRNGonGF::create_new_spinbox(int max_degree) {
     auto newSpinBox = new QSpinBox();
     newSpinBox->setMaximum(max_degree);
+    newSpinBox->setMaximumWidth(50);
+    newSpinBox->setMinimumWidth(50);
     newSpinBox->setMinimum(0);
     return newSpinBox;
 }
@@ -164,7 +166,16 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
 
 void PRNGonGF::on_build_prng_clicked() {
 
-    Dialog* mDialog = new Dialog(this);
+    bool ok1;
+    bool ok2;
+    int degree = ui.degree_edit->text().toInt(&ok1);
+    int n = ui.n_edit->text().toInt(&ok2);
+    bool use_even_odd = ui.even_checkbox->isChecked();
+    int type = ui.field_box->currentIndex();  // 0 - 2^N, 1 - G
+
+
+
+    Dialog* mDialog = new Dialog(this, ui.n_edit->text());
     mDialog->show();
    
 }

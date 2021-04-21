@@ -36,7 +36,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Степень полинома</string>
+             <string>Степень поля</string>
             </property>
            </widget>
           </item>
