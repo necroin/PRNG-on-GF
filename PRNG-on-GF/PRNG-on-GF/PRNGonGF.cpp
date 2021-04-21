@@ -53,7 +53,7 @@ void PRNGonGF::set_spinbox_max_value(QBoxLayout* parent, int max_degree) {
 
 QSpinBox* PRNGonGF::create_new_spinbox(int max_degree) {
     auto newSpinBox = new QSpinBox();
-    newSpinBox->setMaximum(max_degree);
+    newSpinBox->setMaximum(max_degree - 1);
     newSpinBox->setMaximumWidth(50);
     newSpinBox->setMinimumWidth(50);
     newSpinBox->setMinimum(0);
