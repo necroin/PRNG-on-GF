@@ -356,7 +356,7 @@ void PRNGonGF::on_build_prng_clicked() {
             }
 
             std::ostringstream result_string;
-            generator.print_all_cycles(result_string);
+            generator.print_all_cycles(result_string, ui.display_states->isChecked());
             
             Dialog* mDialog = new Dialog(this, result_string.str().c_str());
             mDialog->show();

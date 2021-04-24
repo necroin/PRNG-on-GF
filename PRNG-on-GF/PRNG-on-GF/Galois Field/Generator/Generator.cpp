@@ -116,7 +116,7 @@ std::vector<std::vector<std::vector<GFElement>>> Generator::generate_all_cycles(
 	return all_cycles;
 }
 
-void Generator::print_all_cycles(std::ostream& out)
+void Generator::print_all_cycles(std::ostream& out, bool show_states)
 {
 	out << "n = " << _field.dimension() << ", N = " << _N << std::endl;
 	auto print_ch = [&out](std::string name, const std::vector<GFElement>& elements) {
@@ -139,11 +139,13 @@ void Generator::print_all_cycles(std::ostream& out)
 		++cycle_counter;
 		out << "Cycle -> " << cycle_counter << std::endl;
 		out << "States count -> " << cycle.size() << std::endl;
-		for (auto&& combination : cycle) {
-			for (auto&& q : combination) {
-				out << q.to_int() << " ";
+		if (show_states) {
+			for (auto&& combination : cycle) {
+				for (auto&& q : combination) {
+					out << q.to_int() << " ";
+				}
+				out << std::endl;
 			}
-			out << std::endl;
 		}
 		out << std::endl;
 	}

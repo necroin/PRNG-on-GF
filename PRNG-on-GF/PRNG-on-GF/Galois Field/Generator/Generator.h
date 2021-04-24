@@ -28,7 +28,7 @@ public:
 	void print_state(std::ostream& out = std::cout);
 	void print_all_current_cycle_states(std::ostream& out = std::cout);
 	std::vector<std::vector<std::vector<GFElement>>> generate_all_cycles();
-	void print_all_cycles(std::ostream& out = std::cout);
+	void print_all_cycles(std::ostream& out = std::cout, bool show_states = false);
 public:
 	static GFElement field_add(const GFElement& left, const GFElement& right);
 	static GFElement mod_add(const GFElement& left, const GFElement& right);
