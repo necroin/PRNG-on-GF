@@ -310,7 +310,7 @@ void PRNGonGF::on_build_prng_clicked() {
                 }
                 else {
                     QMessageBox msgBox;
-                    msgBox.setText("Wrong A/C parameters.");
+                    msgBox.setText("Wrong A/C parameters");
                     msgBox.exec();
                     throw std::exception("Wrong A/C parameters");
                 }
@@ -337,7 +337,7 @@ void PRNGonGF::on_build_prng_clicked() {
                     }
                     else {
                         QMessageBox msgBox;
-                        msgBox.setText("Wrong A/C parameters.");
+                        msgBox.setText("Wrong A/C parameters");
                         msgBox.exec();
                         throw std::exception("Wrong A/C parameters");
                     }
@@ -362,10 +362,16 @@ void PRNGonGF::on_build_prng_clicked() {
             mDialog->show();
         } 
         catch(std::exception& exc){
+            QMessageBox msgBox;
+            msgBox.setText("Invalid data");
+            msgBox.exec();
             ui.statusBar->showMessage(exc.what());
         }
     }
     else {
+        QMessageBox msgBox;
+        msgBox.setText("Invalid data");
+        msgBox.exec();
         ui.statusBar->showMessage("Invalid data");
     }
    
