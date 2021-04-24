@@ -8,6 +8,7 @@
 #include "Galois Field/Generator/Generator.h"
 #include <sstream>
 #include <QString>
+#include <QMessageBox>
 #include <QScrollArea>
 
 class PRNGonGF : public QMainWindow

@@ -310,6 +310,9 @@ void PRNGonGF::on_build_prng_clicked() {
                     C.push_back(field.create_polynomial(prim_poly::detail::to_binary(value_c, n)));
                 }
                 else {
+                    QMessageBox msgBox;
+                    msgBox.setText("Wrong A/C parameters.");
+                    msgBox.exec();
                     throw std::exception("Wrong A/C parameters");
                 }
             }
@@ -334,6 +337,9 @@ void PRNGonGF::on_build_prng_clicked() {
                         C_odd.push_back(field.create_polynomial(prim_poly::detail::to_binary(value_c, n)));
                     }
                     else {
+                        QMessageBox msgBox;
+                        msgBox.setText("Wrong A/C parameters.");
+                        msgBox.exec();
                         throw std::exception("Wrong A/C parameters");
                     }
                 }
