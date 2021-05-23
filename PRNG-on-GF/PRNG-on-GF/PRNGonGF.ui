@@ -129,7 +129,7 @@
         <item>
          <widget class="QCheckBox" name="even_checkbox">
           <property name="text">
-           <string>Разделять чт и нч такты</string>
+           <string>Разделять чётные и нечётные такты</string>
           </property>
          </widget>
         </item>

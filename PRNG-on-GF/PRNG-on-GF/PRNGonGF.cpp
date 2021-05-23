@@ -208,14 +208,11 @@ void PRNGonGF::on_even_checkbox_stateChanged() {
         ui.statusBar->showMessage("Even/odd mod is now used");
 
 
-        a_label_second = new QLabel(QString::fromUtf8(u8"A чт"));
-        c_label_second = new QLabel(QString::fromUtf8(u8"C чт"));
+        a_label_second = new QLabel(QString::fromUtf8(u8"A нч"));
+        c_label_second = new QLabel(QString::fromUtf8(u8"C нч"));
 
-        a_label_first->setText(QString::fromUtf8(u8"A нч"));
-        c_label_first->setText(QString::fromUtf8(u8"C нч"));
-
-        //ui.a_even_layout->addLayout(a_second);
-        //ui.c_even_layout->addLayout(c_second);
+        a_label_first->setText(QString::fromUtf8(u8"A чт"));
+        c_label_first->setText(QString::fromUtf8(u8"C чт"));
 
         QWidget* central1 = new QWidget;
         QWidget* central2 = new QWidget;

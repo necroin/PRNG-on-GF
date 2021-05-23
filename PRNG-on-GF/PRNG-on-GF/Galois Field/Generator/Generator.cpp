@@ -22,13 +22,15 @@ void Generator::odd_iteration(std::vector<GFElement>& new_Q)
 	}
 }
 
-void Generator::check_endless_loop(std::vector<GFElement>& A, std::vector<GFElement>& C)
+void Generator::check_endless_loop(std::vector<GFElement>& Q)
 {
-	for (Int i = 0; i < _N; ++i) {
-		if (A[i].to_int() == 0 && C[i].to_int() == 0) {
-			throw std::exception("endless loop");
-		}
-	}
+	static int repeat = 0;
+	static const int max_repeat = 10;
+	static std::vector<GFElement> prev_Q;
+	if (Q == prev_Q) ++repeat;
+	else repeat = 0;
+	if (repeat == max_repeat) throw std::exception("endless loop");
+	prev_Q = Q;
 }
 
 Generator::Generator(GaloisField& field, Int N, std::vector<GFElement> A, std::vector<GFElement> C, std::vector<GFElement> star_Q) :
@@ -65,17 +67,22 @@ void Generator::print_state(std::ostream& out)
 
 void Generator::print_all_current_cycle_states(std::ostream& out)
 {
+	decltype(auto) prev_Q = _Q;
+	decltype(auto) prev_even_flag = _even_iteration;
+
 	reset();
 	print_state(out);
 	while (generate() != _start_Q) {
 		print_state(out);
 	}
+	_Q = prev_Q;
+	_even_iteration = prev_even_flag;
 }
 
 std::vector<std::vector<std::vector<GFElement>>> Generator::generate_all_cycles()
 {
-	check_endless_loop(_even_A, _even_C);
-	check_endless_loop(_odd_A, _odd_C);
+	decltype(auto) prev_Q = _Q;
+	decltype(auto) prev_even_flag = _even_iteration;
 	decltype(auto) all_field_polynomials = _field.all_field_elements(); 
 
 	std::set<std::vector<GFElement>> all_polynomials_combinations_set;
@@ -103,16 +110,20 @@ std::vector<std::vector<std::vector<GFElement>>> Generator::generate_all_cycles(
 	while (!all_polynomials_combinations_set.empty()) {
 		auto start_Q = *all_polynomials_combinations_set.begin();
 		_Q = start_Q;
+		_even_iteration = false;
 		all_cycles.emplace_back(std::vector<std::vector<GFElement>>());
 		decltype(auto) current_cycle = all_cycles.back();
 		current_cycle.emplace_back(_Q);
 		all_polynomials_combinations_set.erase(_Q);
 		while (generate() != start_Q) {
+			check_endless_loop(_Q);
 			current_cycle.emplace_back(_Q);
 			all_polynomials_combinations_set.erase(_Q);
 		}
 	}
-	reset();
+
+	_Q = prev_Q;
+	_even_iteration = prev_even_flag;
 	return all_cycles;
 }
 
