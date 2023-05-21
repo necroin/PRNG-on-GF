@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="PRNGonGF.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Galois Field\Field\GaloisField.cpp">
+      <Filter>Core\Galois Field\Field</Filter>
+    </ClCompile>
+    <ClCompile Include="Galois Field\Field\GFElement\GFElement.cpp">
+      <Filter>Core\Galois Field\Field\GFElement</Filter>
+    </ClCompile>
+    <ClCompile Include="Galois Field\Arithmetic\Modular\ModularArithmetic.cpp">
+      <Filter>Core\Galois Field\Arithmetic\Modular</Filter>
+    </ClCompile>
+    <ClCompile Include="Galois Field\Arithmetic\Polynomial\PolynomialArithmetic.cpp">
+      <Filter>Core\Galois Field\Arithmetic\Polynomial</Filter>
+    </ClCompile>
+    <ClCompile Include="Galois Field\Generator\Generator.cpp">
+      <Filter>Core\PRNG</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialog.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="PRNGonGF.h" />
+    <QtMoc Include="Dialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="PRNGonGF.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="PRNGonGF.ui" />
+    <QtUic Include="Dialog.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{236ead8c-77d6-4025-916a-1db00c75c097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Galois Field">
+      <UniqueIdentifier>{5aba675e-f806-4bdc-a114-90306f229198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\PRNG">
+      <UniqueIdentifier>{72a8c0c9-f2f4-4fe7-b161-88fab7e75de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Galois Field\Field">
+      <UniqueIdentifier>{ec75887a-548f-480a-8279-6354a43ecaf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Galois Field\Arithmetic">
+      <UniqueIdentifier>{54361a8a-b10f-4dd7-83ab-581311dc089b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Test">
+      <UniqueIdentifier>{f7e3d8ad-e957-49f5-8948-be4c47bb81f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Galois Field\Field\GFElement">
+      <UniqueIdentifier>{ffaf750f-4841-4032-b576-6b061352011c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Galois Field\Arithmetic\Modular">
+      <UniqueIdentifier>{aed710b4-318a-40ad-9a3a-7f40a4f83c37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Galois Field\Arithmetic\Polynomial">
+      <UniqueIdentifier>{f1cc1382-9536-495d-aae5-7c6ff488d0c7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Galois Field\Field\GaloisField.h">
+      <Filter>Core\Galois Field\Field</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Field\GFElement\GFElement.h">
+      <Filter>Core\Galois Field\Field\GFElement</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Arithmetic\Modular\ModularArithmetic.h">
+      <Filter>Core\Galois Field\Arithmetic\Modular</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Arithmetic\Polynomial\PolynomialArithmetic.h">
+      <Filter>Core\Galois Field\Arithmetic\Polynomial</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Test\Test.h">
+      <Filter>Core\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Test\TestsRun.h">
+      <Filter>Core\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Test\Field_2_3_tests.h">
+      <Filter>Core\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Test\Field_2_2_tests.h">
+      <Filter>Core\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Galois Field\Generator\Generator.h">
+      <Filter>Core\PRNG</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

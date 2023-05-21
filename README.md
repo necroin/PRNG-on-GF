@@ -1,2 +1,2 @@
 # PRNG-on-GF
-pseudorandom number generator, thar ganarates numbers from galois field
+pseudorandom number generator, that generates numbers from galois field
